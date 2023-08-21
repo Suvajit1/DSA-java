@@ -25,6 +25,7 @@ public class Day23_GridWays {
         int n=N-1-y;  // right move
         return fact(m+n)/(fact(m)*fact(n));
     }
+    
     public static void main(String[] args) {
         int ways = gridWays(0, 0, 3, 3);
         System.out.println(ways);
