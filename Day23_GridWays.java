@@ -31,7 +31,5 @@ public class Day23_GridWays {
 
         System.out.println(gridWaysOptimized(0, 0, 3, 3));
         System.out.println(gridWaysOptimized(1, 1, 4, 4));
-
     }
-
 }
