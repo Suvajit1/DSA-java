@@ -29,10 +29,12 @@ public class Day24_PairSum {
     }
 
     // sorted and rotated array
+    // O(n)
     public static void pairSum2(ArrayList<Integer> list, int targer){
         int lp=0;
         int rp=list.size()-1;
         int flag=0;
+        int n=list.size();
 
         for(int i=0; i<list.size()-1;i++){
             if(list.get(i)>list.get(i+1)){
@@ -55,7 +57,7 @@ public class Day24_PairSum {
                 //     lp=0;
                 // }
 
-                lp=( lp+1 )%list.size();
+                lp=( lp+1 )% n;
             }
             else{
                 // rp--;
@@ -63,7 +65,7 @@ public class Day24_PairSum {
                 //     rp=list.size()-1;
                 // }
 
-                rp=( list.size() + rp-1 )%list.size();
+                rp=( n + rp-1 )% n;
             }
         }
 
