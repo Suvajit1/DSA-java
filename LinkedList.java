@@ -1,3 +1,4 @@
+// Day 25
 public class LinkedList {
 
     public static class Node{
