@@ -203,6 +203,53 @@ public class LinkedList {
     public int removeNthNodeFromLast(int N){
         return remove(size-N);
     }
+
+    // slow fast approach
+    public Node findMid(Node head){
+        Node slow=head;
+        Node fast=head;
+
+        while( fast != null && fast.next != null ){
+            slow=slow.next;     // +1
+            fast=(fast.next).next; // +2
+        }
+        return slow;
+    }
+
+    public boolean checkPalindrome(){
+
+        if(head==null || head.next == null){
+            return true;
+        }
+        // step1 - find mid
+        Node modNode= findMid(head);
+
+        // step2 - reverse 2nd half
+        Node prev = null;
+        Node curr = modNode;
+        Node next = null;
+
+        while(curr != null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+
+        Node right=prev;    // head of right half
+        Node left = head;
+
+        // step3 - check left half & right half
+        while(right != null){
+            if(left.data != right.data){
+                return false;
+            }
+            left=left.next;
+            right=right.next;
+        }
+
+        return true;
+    }
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
         //ll.printList();
@@ -262,5 +309,17 @@ public class LinkedList {
         System.out.println(ll.removeNthNodeFromLast(3));
         ll.printList();
         System.out.println(ll.size);
+
+
+        LinkedList ll1=new LinkedList();
+        ll1.addFirst(1);
+        ll1.addFirst(2);
+        ll1.addFirst(2);
+        ll1.addFirst(1);
+
+        ll1.printList();
+        System.out.println(ll1.checkPalindrome());
+        //ll1.printList();
+
     }
 }
