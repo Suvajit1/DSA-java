@@ -127,7 +127,7 @@ public class LinkedList {
         return val;
     }
 
-    public int remove(int idx){
+    public int remove(int idx){     // O(n)
         if(idx==0){
             return removeFirst();
         }
@@ -145,6 +145,19 @@ public class LinkedList {
         size--;
         return val;
 
+    }
+
+    public int searchIterative(int key){    // O(n)
+        Node temp = head;
+        int i=0;
+        while(temp != null){
+            if(temp.data==key){
+                return i;
+            }
+            temp=temp.next;
+            i++;
+        }
+        return -1;
     }
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
@@ -180,5 +193,16 @@ public class LinkedList {
         System.out.println(ll.remove(1));
         ll.printList();
         System.out.println(ll.size);
+
+        ll.addFirst(1);
+        ll.addLast(4);
+        ll.addLast(5);
+        ll.printList();
+        System.out.println(ll.size);
+
+        System.out.println(ll.searchIterative(3));
+        System.out.println(ll.searchIterative(10));
+
+
     }
 }
