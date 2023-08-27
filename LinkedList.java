@@ -150,6 +150,7 @@ public class LinkedList {
     public int searchIterative(int key){    // O(n)
         Node temp = head;
         int i=0;
+
         while(temp != null){
             if(temp.data==key){
                 return i;
@@ -157,7 +158,30 @@ public class LinkedList {
             temp=temp.next;
             i++;
         }
+
         return -1;
+    }
+
+    public int searchRecursion(int key, Node head, int i){
+        // base
+        if(head==null){
+            return -1;
+        }
+        // work
+        if(head.data==key){
+            return i;
+        }
+        // recursion
+        return searchRecursion(key, head.next, i+1);
+    }
+
+    // printing in reverse order O(n)
+    public void reversePrinting(Node head){
+        if(head == null){
+            return;
+        }
+        reversePrinting(head.next);
+        System.out.print(head.data+" ");
     }
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
@@ -202,6 +226,11 @@ public class LinkedList {
 
         System.out.println(ll.searchIterative(3));
         System.out.println(ll.searchIterative(10));
+
+        System.out.println(ll.searchRecursion(3, ll.head, 0));
+        System.out.println(ll.searchRecursion(10, ll.head, 0));
+
+        ll.reversePrinting(ll.head);
 
 
     }
