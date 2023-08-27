@@ -126,6 +126,26 @@ public class LinkedList {
         size--;
         return val;
     }
+
+    public int remove(int idx){
+        if(idx==0){
+            return removeFirst();
+        }
+        if(idx==size-1){
+            return removeLast();
+        }
+        Node temp= head;
+        for(int i=0;i<idx-1;i++){
+            temp=temp.next;
+        }
+        Node targetNode=temp.next;
+        int val= targetNode.data;
+        temp.next=temp.next.next;
+        targetNode.next=null;
+        size--;
+        return val;
+
+    }
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
         //ll.printList();
@@ -157,6 +177,8 @@ public class LinkedList {
         ll.printList();
         System.out.println(ll.size);
 
-
+        System.out.println(ll.remove(1));
+        ll.printList();
+        System.out.println(ll.size);
     }
 }
