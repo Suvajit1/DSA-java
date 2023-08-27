@@ -140,7 +140,9 @@ public class LinkedList {
         }
         Node targetNode=temp.next;
         int val= targetNode.data;
+
         temp.next=temp.next.next;
+
         targetNode.next=null;
         size--;
         return val;
@@ -198,6 +200,9 @@ public class LinkedList {
         head=prev;
     }
 
+    public int removeNthNodeFromLast(int N){
+        return remove(size-N);
+    }
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
         //ll.printList();
@@ -253,5 +258,9 @@ public class LinkedList {
 
         // ll.reversePrinting(ll.head);
         // System.out.println();
+
+        System.out.println(ll.removeNthNodeFromLast(3));
+        ll.printList();
+        System.out.println(ll.size);
     }
 }
