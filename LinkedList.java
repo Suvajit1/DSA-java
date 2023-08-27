@@ -183,6 +183,21 @@ public class LinkedList {
         reversePrinting(head.next);
         System.out.print(head.data+" ");
     }
+
+    public void reverseLinkedList(){    // O(n)
+        Node prev=null, curr= head, next=null;
+
+        while(curr != null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+
+        tail=head;
+        head=prev;
+    }
+
     public static void main(String[] args) {
         LinkedList ll=new LinkedList();
         //ll.printList();
@@ -231,7 +246,12 @@ public class LinkedList {
         System.out.println(ll.searchRecursion(10, ll.head, 0));
 
         ll.reversePrinting(ll.head);
+        System.out.println();
 
+        ll.reverseLinkedList();
+        ll.printList();
 
+        // ll.reversePrinting(ll.head);
+        // System.out.println();
     }
 }
