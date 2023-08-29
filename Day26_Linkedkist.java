@@ -9,8 +9,8 @@ class Node {
 }
 
 class LinkedList {
-    private Node head;
-    private Node tail;
+    Node head;
+    Node tail;
     int size = 0;
 
     public void addFirst(int data) { // O(1)
@@ -315,6 +315,61 @@ class LinkedList {
 
         System.out.println("Cycle removed");
     }
+
+
+    private Node getMid(Node head){
+        Node slow=head;
+        Node fast=head.next;
+
+        while (fast != null && fast.next != null) {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+
+    private Node merge( Node lHead, Node rHead){
+        Node mergeLL = new Node(-1);
+        Node temp =mergeLL;
+
+        while(lHead != null && rHead != null){
+            if(lHead.data < rHead.data){
+                temp.next=lHead;
+                lHead=lHead.next;
+                temp=temp.next;
+            }else{
+                temp.next=rHead;
+                rHead=rHead.next;
+                temp=temp.next;
+            }
+        }
+
+        if(lHead != null){
+            temp.next=lHead;
+        }
+        if (rHead != null) {
+            temp.next=rHead;
+        }
+
+        return mergeLL.next;
+    }
+
+    // merge sort
+    public Node mergeSort(Node head){
+
+        if(head==null || head.next==null){
+            return head;
+        }
+        // find mid
+        Node mid= getMid(head);
+        // left & right MS
+        Node rightHead =mid.next;
+        mid.next=null;
+        Node newLeftHead = mergeSort(head);
+        Node newRightHead = mergeSort(rightHead);
+        // merge
+        return merge(newLeftHead,newRightHead);
+    }
 }
 
 public class Day26_Linkedkist {
@@ -365,6 +420,19 @@ public class Day26_Linkedkist {
         ll3.printList();
         ll3.removeCycle();
         ll3.printList();
+
+        LinkedList ll4= new LinkedList();
+        ll4.addLast(3);
+        ll4.addLast(1);
+        ll4.addLast(11);
+        ll4.addLast(7);
+        ll4.addLast(5);
+        ll4.addLast(10);
+
+        ll4.printList();
+        ll4.head= ll4.mergeSort(ll4.head);
+        ll4.printList();
+        System.out.println(ll4.tail.data);  // 10 tail is not getting updated
 
     }
 }
