@@ -299,10 +299,12 @@ class LinkedList {
             return;
         }
 
+        System.out.println("Cycle prestnt");
+
         // detect point of cycle creation
         slow=head;
         Node prev=null;
-        while(slow != head){
+        while(slow != fast){
             prev=fast;
             slow=slow.next;
             fast=fast.next;
@@ -310,6 +312,8 @@ class LinkedList {
 
         // break cycle
         prev.next=null;
+
+        System.out.println("Cycle removed");
     }
 }
 
