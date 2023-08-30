@@ -370,6 +370,41 @@ class LinkedList {
         // merge
         return merge(newLeftHead,newRightHead);
     }
+
+    // Zig-Zag Linked list
+    // 1->2->3->4->5->6 --->  1->6->2->5->3->4
+    public void zig_zagList(){
+        Node lHead=head;
+        Node mid =this.getMid(head);
+
+        // reverse 2nd half
+        Node prev=null;
+        Node curr= mid.next;
+        Node next = null;
+
+        while(curr != null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+
+        Node rHead= prev;
+        mid.next=null;
+
+        // zig-zag merge
+        Node nextLH, nextRH, temp=lHead;
+        while(lHead !=null && rHead != null){
+            nextLH=lHead.next;
+            nextRH=rHead.next;
+
+            lHead.next=rHead;
+            lHead=nextLH;
+            rHead.next=lHead;
+            rHead=nextRH;
+        }
+        this.head=temp;
+    }
 }
 
 public class Day26_Linkedkist {
@@ -433,6 +468,19 @@ public class Day26_Linkedkist {
         ll4.head= ll4.mergeSort(ll4.head);
         ll4.printList();
         System.out.println(ll4.tail.data);  // 10 tail is not getting updated
+
+        LinkedList ll5=new LinkedList();
+        ll5.addLast(1);
+        ll5.addLast(2);
+        ll5.addLast(3);
+        ll5.addLast(4);
+        ll5.addLast(5);
+        ll5.addLast(6);        
+        ll5.addLast(7);
+
+        ll5.printList();
+        ll5.zig_zagList();
+        ll5.printList();
 
     }
 }
