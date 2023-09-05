@@ -29,10 +29,17 @@ class DoubleLL{
         size++;
     }
 
-    public void removeFirst(){
-        if(size==0 || size==1){
+    public int removeFirst(){
+        if(size==0){
+            System.out.println("DLL is empty");
+            return Integer.MIN_VALUE;
+        }
+
+        int val =head.data;
+
+        if(size==1){
             head=tail=null;
-            return;
+            return val;
         }
 
         Node temp= head.next;
@@ -40,19 +47,17 @@ class DoubleLL{
         temp.prev=null;
         head=temp;
         size--;
+
+        return val;
     }
 
     public void printtDDL(){
         Node temp=head;
         while(temp != null){
-            if(temp.next==null){
-                System.out.print(temp.data);
-            }else{
-                System.out.print(temp.data+"<->");
-            }
+            System.out.print(temp.data+"<->");
             temp=temp.next;
         }
-        System.out.println();
+        System.out.println("null");
     }
 
     public void reverseDLL(){
@@ -90,7 +95,7 @@ public class Day26_DoublyLinkedList {
         System.out.println(dll.head.data);
         System.out.println(dll.tail.data);
 
-        dll.removeFirst();
+        System.out.println(dll.removeFirst());
         dll.printtDDL();
         System.out.println(dll.head.data);
         System.out.println(dll.tail.data);
