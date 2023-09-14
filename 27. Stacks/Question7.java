@@ -10,15 +10,27 @@ public class Question7 {
             if(ch != ')'){
                 s.push(ch);
             }
-            else{   // clossing
-                int count=0;
-                while(s.peek() != '('){
-                    s.pop();
+            // way 1
+            // else{   // clossing
+            //     int count=0;
+            //     while(s.peek() != '('){
+            //         s.pop();
+            //         count++;
+            //     }
+            //     if(count!=0){
+            //         s.pop();  // opening pair 
+            //     }else{  // count = 0 means duplicate exist
+            //         return true;
+            //     }
+            // }
+
+            // way 2
+            else{
+                int count =0;
+                while(s.pop() != '('){  // openning pair is considered togetherly
                     count++;
                 }
-                if(count!=0){
-                    s.pop();
-                }else{  // count = 0 means duplicate exist
+                if(count<1){    // count =0 ie duplicate
                     return true;
                 }
             }
