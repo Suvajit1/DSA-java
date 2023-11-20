@@ -1,5 +1,6 @@
 // Kth level of a tree
 // lowest common ancestors (Approach 1)
+// lowest common ancestors (Approach 2)
 
 import java.util.ArrayList;
 
@@ -29,8 +30,8 @@ public class BinaryTreeC {
         klevel(root.right, level+1, k);
     }
 
-    // lowest common ancestors (Approach 1)
-    public static boolean getPath(Node root, int n, ArrayList<Node> path){
+    // lowest common ancestors (Approach 1) TC-O(n) and SC-O(n)
+    public static boolean getPath(Node root, int n, ArrayList<Node> path){  // O(n)
         if(root==null){
             return false;
         }
@@ -56,14 +57,14 @@ public class BinaryTreeC {
         return false;
     }
     public static Node lca(Node root, int n1, int n2){
-        ArrayList<Node> path1= new ArrayList<>();
+        ArrayList<Node> path1= new ArrayList<>();   // space complexity - O(n)
         ArrayList<Node> path2= new ArrayList<>();
 
         getPath(root, n1, path1);
         getPath(root, n2, path2);
 
         int i;
-        for(i=0; i<path1.size() && i<path2.size(); i++){
+        for(i=0; i<path1.size() && i<path2.size(); i++){    // O(n)
             if(path1.get(i) != path2.get(i)){
                 break;
             }
@@ -72,6 +73,26 @@ public class BinaryTreeC {
         Node lca = path1.get(i-1);
         return lca;
     }
+
+    // lowest common ancestors (Approach 2)
+    public static Node lca2(Node root, int n1, int n2){ // TC - O(n)
+        if( root == null || root.data == n1 || root.data == n2){
+            return root;
+        }
+
+        Node ledtLca = lca2(root.left, n1, n2);
+        Node rightLca = lca2(root.right, n1, n2);
+
+        if(ledtLca == null){
+            return rightLca;
+        }
+        if(rightLca == null){
+            return ledtLca;
+        }
+
+        return root;
+    }
+
     public static void main(String[] args) {
         /*
                     1
@@ -96,6 +117,9 @@ public class BinaryTreeC {
         Node lca2=lca(root, 4, 5);
         System.out.println(lca1.data);        
         System.out.println(lca2.data);
+
+        int n1=4, n2=5;
+        System.out.println(lca2(root, n1, n2).data);
 
     }
 }
