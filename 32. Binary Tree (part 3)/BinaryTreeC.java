@@ -1,6 +1,7 @@
 // Kth level of a tree
 // lowest common ancestors (Approach 1)
 // lowest common ancestors (Approach 2)
+// min distance between two nodes
 
 import java.util.ArrayList;
 
@@ -93,6 +94,33 @@ public class BinaryTreeC {
         return root;
     }
 
+    // min distance between two nodes
+    public static int distance(Node root, int n){
+        if(root==null){
+            return -1;
+        }
+        if(root.data==n){
+            return 0;
+        }
+        int left = distance(root.left, n);
+        int right = distance(root.right, n);
+
+        if(left == -1 && right == -1){
+            return -1;
+        }
+        if(left==-1){
+            return right+1;
+        }
+        else{   // right ==-1
+            return left+1;
+        }
+    }
+
+    public static int minDistance(Node root, int n1, int n2){   // O(n)
+        Node lca= lca2(root, n1, n2);
+
+        return distance(lca, n1)+distance(lca, n2);
+    }
     public static void main(String[] args) {
         /*
                     1
@@ -120,6 +148,9 @@ public class BinaryTreeC {
 
         int n1=4, n2=5;
         System.out.println(lca2(root, n1, n2).data);
+        
+        System.out.println(minDistance(root, 4, 6));
+        System.out.println(minDistance(root, 4, 5));
 
     }
 }
