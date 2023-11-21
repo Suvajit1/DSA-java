@@ -2,6 +2,7 @@
 // lowest common ancestors (Approach 1)
 // lowest common ancestors (Approach 2)
 // min distance between two nodes
+// kth ancestor
 
 import java.util.ArrayList;
 
@@ -121,6 +122,42 @@ public class BinaryTreeC {
 
         return distance(lca, n1)+distance(lca, n2);
     }
+
+    // k-th Ancestor
+    public static int kthAncestor(Node root, int n, int k){
+        if(root == null){
+            return -1;
+        }
+
+        if(root.data == n){
+            return 0;
+        }
+
+        int left = kthAncestor(root.left,n,k);
+        int right = kthAncestor(root.right, n, k);
+
+        if(left==-1 && right==-1){
+            return -1;
+        }
+        // else if(left ==-1){
+        //     if(right+1 == k){
+        //         System.out.println(root.data);
+        //     }
+        //     return right+1;
+        // }else{
+        //     if(left+1 == k){
+        //         System.out.println(root.data);
+        //     }
+        //     return left+1;
+        // }
+
+        int max= Math.max(left, right);
+        if(max+1==k){
+            System.out.println(root.data);
+        }
+
+        return max+1;
+    }
     public static void main(String[] args) {
         /*
                     1
@@ -151,6 +188,10 @@ public class BinaryTreeC {
         
         System.out.println(minDistance(root, 4, 6));
         System.out.println(minDistance(root, 4, 5));
+
+        kthAncestor(root, 4, 1);        
+        kthAncestor(root, 5, 2);        
+        kthAncestor(root, 5, 5);    // nothing print
 
     }
 }
