@@ -1,5 +1,6 @@
 // Build a Binary Search Tree 
 // Search for a key in BST 
+// delete a Node from BST
 
 public class BST {
 
@@ -15,7 +16,7 @@ public class BST {
         }
     }
 
-    public static Node insert(Node root, int val){
+    public static Node insert(Node root, int val){  // O(h)
         if(root==null){
             root=new Node(val);
             return root;
@@ -38,7 +39,7 @@ public class BST {
         inOrder(root.right);
     }
 
-    public static boolean search(Node root, int key){
+    public static boolean search(Node root, int key){   // O(h)
         if(root==null){
             return false;
         }
@@ -52,17 +53,52 @@ public class BST {
             return search(root.left, key);
         }
     }
+
+    public static Node delete(Node root, int val){
+
+        if(root.data>val){
+            root.left = delete(root.left, val);
+        }else if (root.data<val) {
+            root.right = delete(root.right, val);
+        }else{
+            // case 1 : leaf node
+            if(root.left == null && root.right == null){
+                return null;
+            }
+
+            // case 2 : one child
+            if(root.left == null){
+                return root.right;
+            }else if(root.right == null){
+                return root.left;
+            }
+
+            // case 3 : two child
+            Node IS = inOrderSuccessor(root.right);
+            root.data=IS.data;
+            root.right = delete(root.right, IS.data);
+        }
+
+        return root;
+    }
+    public static Node inOrderSuccessor(Node root){
+        while (root.left != null) {
+            root=root.left;
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
-        int values[]={5,1,3,4,2,7};
+        int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
         /*
-         *       5
-         *      / \
-         *     1   7
-         *      \
-         *       3
-         *      / \
-         *     2   4
+         *           8
+         *          / \
+         *         5  10
+         *        / \   \
+         *       3   6  11
+         *      / \   \   \
+         *     1   4   7  14
         */
         Node root = null;
 
@@ -73,7 +109,19 @@ public class BST {
         inOrder(root);
         System.out.println();
 
-        System.out.println(search(root, 2));
+        System.out.println(search(root, 5));
         System.out.println(search(root, 9));
+
+        root=delete(root, 4);
+        inOrder(root);
+        System.out.println();
+
+        root=delete(root, 10);
+        inOrder(root);
+        System.out.println();
+
+        root=delete(root, 5);
+        inOrder(root);
+        System.out.println();
     }
 }
