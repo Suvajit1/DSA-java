@@ -2,6 +2,9 @@
 // Search for a key in BST 
 // delete a Node from BST
 // print in range
+// print root to leaf path
+
+import java.util.ArrayList;
 
 public class BST {
 
@@ -112,6 +115,23 @@ public class BST {
             printInRange(root.right, k1, k2);
         }
     }
+
+    public static void leafPath(Node root, ArrayList<Integer> path){
+
+        if(root==null){
+            return;
+        }
+        
+        path.add(root.data);
+
+        if(root.left == null && root.right == null){
+            System.out.println(path);
+        }
+
+        leafPath(root.left, path);
+        leafPath(root.right, path);
+        path.remove(path.size()-1);
+    }
     public static void main(String[] args) {
         int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
@@ -149,5 +169,9 @@ public class BST {
         // System.out.println();
 
         printInRange(root, 5, 12);
+        System.out.println();
+
+        ArrayList<Integer> path=new ArrayList<>();
+        leafPath(root, path);
     }
 }
