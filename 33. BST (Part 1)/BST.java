@@ -4,6 +4,7 @@
 // print in range
 // print root to leaf path
 // validate BST
+// Mirror a BST
 
 import java.util.ArrayList;
 
@@ -155,6 +156,30 @@ public class BST {
 
         return isBST(root.left, min, root) && isBST(root.right, root, max) ;
     }
+
+    public static void mirror(Node root){
+        if(root==null){
+            return;
+        }
+        Node prevLeft=root.left;
+        root.left=root.right;
+        root.right=prevLeft;
+        mirror(root.left);
+        mirror(root.right);
+    }
+
+    public static Node mirror1(Node root){
+        if(root==null){
+            return null;
+        }
+        Node leftS = mirror1(root.left);
+        Node rightS = mirror1(root.right);
+
+        root.left = rightS;
+        root.right = leftS;
+
+        return root;
+    }
     public static void main(String[] args) {
         int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
@@ -217,6 +242,11 @@ public class BST {
 
         System.out.println(isBST(root, null, null));
         System.out.println(isBST(root1, null, null));
-        
+
+        mirror(root);
+        inOrder(root);
+        System.out.println();
+        root = mirror1(root);
+        inOrder(root);
     }
 }
