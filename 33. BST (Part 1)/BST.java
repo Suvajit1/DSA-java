@@ -172,11 +172,11 @@ public class BST {
         if(root==null){
             return null;
         }
-        Node leftS = mirror1(root.left);
-        Node rightS = mirror1(root.right);
+        Node leftMirror = mirror1(root.left);
+        Node rightMirror = mirror1(root.right);
 
-        root.left = rightS;
-        root.right = leftS;
+        root.left = rightMirror;
+        root.right = leftMirror;
 
         return root;
     }
