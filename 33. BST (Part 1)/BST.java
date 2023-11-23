@@ -1,6 +1,7 @@
 // Build a Binary Search Tree 
 // Search for a key in BST 
 // delete a Node from BST
+// print in range
 
 public class BST {
 
@@ -88,6 +89,29 @@ public class BST {
         return root;
     }
 
+    // print in range k1 and k2
+    public static void printInRange(Node root, int k1, int k2){
+        if(root==null){
+            return ;
+        }
+
+        // case 1 k1 <= root <= k2
+        if(k1 <= root.data && root.data <= k2){
+            printInRange(root.left, k1, k2);
+            System.out.print(root.data+" ");
+            printInRange(root.right, k1, k2);
+        }
+
+        // case 2 root > k2  -> left 
+        if(root.data > k2){
+            printInRange(root.left, k1, k2);
+        }
+
+        // case 3 root < k1 -> right
+        if(root.data < k1){
+            printInRange(root.right, k1, k2);
+        }
+    }
     public static void main(String[] args) {
         int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
@@ -112,16 +136,18 @@ public class BST {
         System.out.println(search(root, 5));
         System.out.println(search(root, 9));
 
-        root=delete(root, 4);
-        inOrder(root);
-        System.out.println();
+        // root=delete(root, 4);
+        // inOrder(root);
+        // System.out.println();
 
-        root=delete(root, 10);
-        inOrder(root);
-        System.out.println();
+        // root=delete(root, 10);
+        // inOrder(root);
+        // System.out.println();
 
-        root=delete(root, 5);
-        inOrder(root);
-        System.out.println();
+        // root=delete(root, 5);
+        // inOrder(root);
+        // System.out.println();
+
+        printInRange(root, 5, 12);
     }
 }
