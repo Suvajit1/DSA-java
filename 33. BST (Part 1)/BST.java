@@ -117,7 +117,6 @@ public class BST {
         }
     }
 
-
     public static void leafPath(Node root, ArrayList<Integer> path){
 
         if(root==null){
@@ -142,6 +141,20 @@ public class BST {
         return root;
     }
 
+    public static boolean isBST(Node root, Node min, Node max){
+        if(root == null){
+            return true;
+        }
+
+        if(min != null && root.data <= min.data){
+            return false;
+        }
+        if (max != null && root.data >= max.data) {
+            return false;
+        }
+
+        return isBST(root.left, min, root) && isBST(root.right, root, max) ;
+    }
     public static void main(String[] args) {
         int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
@@ -184,6 +197,26 @@ public class BST {
         ArrayList<Integer> path=new ArrayList<>();
         leafPath(root, path);
 
-        System.out.println(isBST(root));
+        
+        /*
+         *       3
+         *      / \
+         *     2   5
+         *    / \
+         *   1   4
+         */
+
+        Node root1=new Node(3);
+        root1.left = new Node(2);
+        root1.right = new Node(5);
+        root1.left.left = new Node(1);
+        root1.left.right = new Node(4);
+
+        inOrder(root1);
+        System.out.println();
+
+        System.out.println(isBST(root, null, null));
+        System.out.println(isBST(root1, null, null));
+        
     }
 }
