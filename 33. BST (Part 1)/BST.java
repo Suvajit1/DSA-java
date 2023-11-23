@@ -3,6 +3,7 @@
 // delete a Node from BST
 // print in range
 // print root to leaf path
+// validate BST
 
 import java.util.ArrayList;
 
@@ -116,6 +117,7 @@ public class BST {
         }
     }
 
+
     public static void leafPath(Node root, ArrayList<Integer> path){
 
         if(root==null){
@@ -132,6 +134,14 @@ public class BST {
         leafPath(root.right, path);
         path.remove(path.size()-1);
     }
+
+    public static Node inorderPredessor(Node root){
+        while (root.right != null) {
+            root = root.right;
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
         int values[]={8, 5, 3, 1, 4, 6, 7, 10, 11, 14};
 
@@ -173,5 +183,7 @@ public class BST {
 
         ArrayList<Integer> path=new ArrayList<>();
         leafPath(root, path);
+
+        System.out.println(isBST(root));
     }
 }
