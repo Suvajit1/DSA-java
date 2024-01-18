@@ -9,12 +9,14 @@ public class Question1 {
         HashMap<Integer,Integer> map = new HashMap<>();
 
         for(int i=0;i<nums.length;i++){
-            int num=nums[i];
-            if(map.containsKey(num)){
-                map.put(num, map.get(num)+1);
-            }else{
-                map.put(num, 1);
-            }
+            // int num=nums[i];
+            // if(map.containsKey(num)){
+            //     map.put(num, map.get(num)+1);
+            // }else{
+            //     map.put(num, 1);
+            // }
+
+            map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
         }
 
         for (Integer key : map.keySet()) {
