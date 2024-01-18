@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Question2 {
 
-    public static boolean isAnagram(String s, String t){
+    public static boolean isAnagram(String s, String t){    // O(n)
         if(s.length() != t.length()){
             return false;
         }
@@ -26,10 +26,12 @@ public class Question2 {
                 }
             }else{
                 return false;
-            }
-            
+            }    
         }
-        return true;
+
+        // return true;
+
+        return map.isEmpty();
     }
 
     public static void main(String[] args) {
