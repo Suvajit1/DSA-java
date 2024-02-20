@@ -1,6 +1,10 @@
-import java.util.ArrayList;
+// connected component
 
-public class topic1 {
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Topic1 {
     static class Edge {
         int src;
         int dest;
@@ -36,6 +40,53 @@ public class topic1 {
         graph[6].add(new Edge(6, 5, 1));
 
     }
+
+    public static void bfs(ArrayList<Edge>[] graph){
+        boolean vis[] = new boolean[graph.length];
+        for(int i=0; i<graph.length; i++){
+            if(!vis[i]){
+                bfsUtil(graph, i, vis);
+            }
+        }
+    }
+    public static void bfsUtil(ArrayList<Edge>[] graph, int vertex, boolean vis[]){
+        
+
+        Queue<Integer> q= new LinkedList<>();
+        q.add(vertex);
+
+        while (! q.isEmpty()) {
+            int curr = q.remove();
+            if(!vis[curr]){
+                System.out.print(curr+" ");
+                vis[curr]=true;
+                for(int i=0;i<graph[curr].size(); i++){
+                    Edge e = graph[curr].get(i);
+                    q.add(e.dest);
+                }
+            }
+        }
+    }
+
+    public static void dfs(ArrayList<Edge>[] graph){
+        boolean vis[] = new boolean[graph.length];
+        for(int i=0;i<graph.length; i++){
+            if(!vis[i]){
+                dfsUtil(graph, i, vis);
+            }
+        }
+    }
+    public static void dfsUtil(ArrayList<Edge>[] graph, int curr, boolean[] vis){
+        System.out.print(curr+" ");
+        vis[curr]=true;
+
+        for(int i=0; i<graph[curr].size(); i++){
+            Edge e =graph[curr].get(i);
+            if(!vis[e.dest]){
+                dfsUtil(graph, e.dest, vis);
+            }
+        }
+    }
     public static void main(String[] args) {
         /*
                     0
@@ -52,5 +103,11 @@ public class topic1 {
         ArrayList<Edge>[] graph = new ArrayList[v];
 
         creatGraph(graph);
+
+        bfs(graph);
+        System.out.println();
+
+        dfs(graph);
+        System.out.println();
     }
 }
