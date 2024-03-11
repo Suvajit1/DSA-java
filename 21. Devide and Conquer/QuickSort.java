@@ -8,6 +8,8 @@ public class QuickSort {
         System.out.println();
     }
 
+    // TC = O(nlogn) [ avg case but in worst case O(n^2) ]
+    // SC = O(1) 
     public static void quickSort(int arr[], int low, int high){
         if(low>=high) return;
 
@@ -22,10 +24,10 @@ public class QuickSort {
         int j = high;
 
         while (i<j) {
-            while (arr[i]<=pivot && i<=high) {
+            while (i<=high && arr[i]<=pivot) {
                 i++;
             }
-            while (arr[j]>pivot && j>=low) {
+            while (j>=low && arr[j]>pivot ) {
                 j--;
             }
 
@@ -45,6 +47,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int arr[] = {4,6,2,5,7,9,1,3};
+        // int arr[] = {2,5,8,1,3,6};
         printArray(arr);
 
         quickSort(arr, 0, arr.length-1);
