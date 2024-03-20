@@ -61,6 +61,23 @@ public class Question1 {
 
         return false;
     }
+
+    public static boolean hasPath2(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis){
+        if(src==dest){
+            return true;
+        }
+        // System.out.println(src);
+        vis[src]=true;
+        for(int i=0;i<graph[src].size();i++){
+            Edge e = graph[src].get(i);
+            
+            if(!vis[e.dest]){
+                if(hasPath2(graph, e.dest, dest, vis))
+                    return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
           /*
          *      1 --- 3
@@ -71,14 +88,17 @@ public class Question1 {
          */
 
         int v = 7;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[v];
         creatGraph(graph);
 
         boolean ans;
-        ans = hasPath(graph, 0, 5, new boolean[v]);
+        ans = hasPath2(graph, 0, 5, new boolean[v]);
         System.out.println(ans);
         
-        ans = hasPath(graph, 0, 7, new boolean[v]);
+        ans = hasPath2(graph, 0, 7, new boolean[v]);
         System.out.println(ans);
+
+
     }
 }
