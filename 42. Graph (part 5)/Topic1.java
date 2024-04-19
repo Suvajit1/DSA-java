@@ -17,7 +17,8 @@ public class Topic1 {
             return x;
         }
 
-        return find(par[x]);
+        // return find(par[x]);
+        return par[x] = find(par[x]); // path Compression --> more optimised
     }
 
     public static void union(int a, int b){
