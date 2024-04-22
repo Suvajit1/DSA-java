@@ -3,7 +3,7 @@
 public class Question5 {
     public static void helper(int[][] image, int r, int c, int color, boolean vis[][], int orgCol){
         // base case
-        if(r<0 || c<0 || r>=image.length || c>=image[0].length || image[r][c] != orgCol){
+        if(r<0 || c<0 || r>=image.length || c>=image[0].length || image[r][c] != orgCol || color == orgCol){
             return;
         }else{
             image[r][c] = color;
@@ -31,11 +31,14 @@ public class Question5 {
         return image;
     }
     public static void main(String[] args) {
-        int image[][] = {{1, 1, 1},
-                         {1, 1, 0},
-                         {1, 0, 1}};
+        // int image[][] = {{1, 1, 1},
+        //                  {1, 1, 0},
+        //                  {1, 0, 1}};
 
-        floodFill(image, 1, 1, 2);
+        int image[][] = {{0, 0, 0},
+                         {0, 0, 0}};
+
+        floodFill(image, 0, 0, 0);
         for(int i=0; i<image.length; i++){
             for(int j=0; j<image[i].length; j++){
                 System.out.print(image[i][j]+ " ");
