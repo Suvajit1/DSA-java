@@ -96,7 +96,7 @@ public class Topic4 {
             // case 1
             // node is visited 
             // on the same path and dest(adjasent node) node not equal to parent
-            else if(pathVis[e.dest] && e.dest != curr){
+            else if(pathVis[e.dest] && e.dest != par){
                 return true ;
             }
 
