@@ -63,6 +63,54 @@ public class Topic4 {
             }
         }
     }
+
+    public static boolean detectCycle(ArrayList<Edge>[] graph){
+        boolean vis[] = new boolean[graph.length];
+        boolean pathVis[] = new boolean[graph.length];
+
+        for(int i=0;i<vis.length; i++){
+            if(!vis[i]){
+                if(detectCycleUtil(graph, i, -1, vis, pathVis)){
+                    return true;
+                }
+            }
+        }
+
+        return false ;
+    }
+
+    public static boolean detectCycleUtil(ArrayList<Edge>[] graph, int curr, int par, boolean vis[], boolean pathVis[]){
+        vis[curr]=true;
+        pathVis[curr]=true;
+
+        for(int i=0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+
+            // case 3
+            if(!vis[e.dest]){
+                if(detectCycleUtil(graph, e.dest, curr, vis, pathVis)){
+                    return true;
+                }
+            }
+
+            // case 1
+            // node is visited 
+            // on the same path and dest(adjasent node) node not equal to parent
+            else if(pathVis[e.dest] && e.dest != curr){
+                return true ;
+            }
+
+            // case 2
+            // node is visited 
+            // not on the same path (par may or may not be equal to dest)OR
+            // path is also visited but par = dest
+            // do nothing continue
+        }
+
+        pathVis[curr]=false;
+        return false;
+    }
+
     public static void main(String[] args) {
 
         /*
@@ -85,5 +133,7 @@ public class Topic4 {
         creatGraph(graph);
         dfs(graph);
         System.out.println();
+
+        System.out.println(detectCycle(graph));
     }
 }

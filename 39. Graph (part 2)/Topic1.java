@@ -43,9 +43,10 @@ public class Topic1 {
 
     public static void bfs(ArrayList<Edge>[] graph){
         boolean vis[] = new boolean[graph.length];
-        for(int i=0; i<graph.length; i++){
-            if(!vis[i]){
-                bfsUtil(graph, i, vis);
+        for(int i=2; i<graph.length+2; i++){
+            int vertex = i%graph.length;
+            if(!vis[vertex]){
+                bfsUtil(graph, vertex, vis);
             }
         }
     }

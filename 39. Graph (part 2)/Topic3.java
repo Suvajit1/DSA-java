@@ -48,7 +48,7 @@ public class Topic3 {
 
         for(int i=0; i<col.length; i++){
             if(col[i]==-1){
-                if(! isBipartiteUtil(graph, col, i)){ // ! is needed for disjoint graph 
+                if(!isBipartiteUtil(graph, col, i)){    // ! is needed fof disjoint graph
                     return false;
                 }
             }
