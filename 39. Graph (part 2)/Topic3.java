@@ -48,12 +48,12 @@ public class Topic3 {
 
         for(int i=0; i<col.length; i++){
             if(col[i]==-1){
-                if(isBipartiteUtil(graph, col, i)){
-                    return true;
+                if(! isBipartiteUtil(graph, col, i)){ // ! is needed for disjoint graph 
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public static boolean isBipartiteUtil(ArrayList<Edge>[] graph, int col[], int vertex){
