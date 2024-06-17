@@ -187,7 +187,8 @@ public class ArrayCC {
         }
         System.out.println("Max sum of Subarray : "+max);
     }
-    
+
+    // not okay for all
     public static void MaxSubarraySum_KadanesAlgo(int arr[]){   //O(n)
         int cs=0;
         int ms=Integer.MIN_VALUE;
@@ -205,6 +206,23 @@ public class ArrayCC {
         System.out.println("Max sum of Subarray : "+ms);
     }
 
+    // use this 
+    public static void maxSum(int arr[]){
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+
+        for(int i=0; i<arr.length; i++){
+            sum+=arr[i];
+            if(sum>max){
+                max=sum;
+            }
+            if(sum<0){
+                sum=0;
+            }
+        }
+        System.out.println(max);
+    }
+    
     public static void main(String[] args) {
         int marks[] = { 2, 4, 6, 0, 10, 18, 9, 5 };
         print(marks);
