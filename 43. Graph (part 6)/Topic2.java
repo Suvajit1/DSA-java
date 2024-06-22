@@ -50,6 +50,8 @@ public class Topic2 {
         }
     }
 
+    // time complexity is that of dfs()
+    // O(v+E)
     public static void tarjanBridge(ArrayList<Edge>[] graph, int V){
         int time=0;
         int dt[]= new int[V];
