@@ -25,13 +25,8 @@ public class Topic2 {
             graph[edges[i][1]].add(new Edge(edges[i][1], edges[i][0]));
         }
     }
-    static int V = 13;
-    static int time=0;
-    static int dt[]= new int[V];
-    static int low[]= new int[V];
 
-
-    public static void findBridges(ArrayList<Edge>[] graph, boolean vis[], int par, int curr){
+    public static void dfs(ArrayList<Edge>[] graph, boolean vis[], int par, int curr, int[] dt, int[] low, int time){
         vis[curr]=true;
         dt[curr] = low[curr] = ++time;
 
@@ -39,7 +34,7 @@ public class Topic2 {
             Edge e = graph[curr].get(i);
 
             if(!vis[e.dest]){
-                findBridges(graph, vis, curr, e.dest);
+                dfs(graph, vis, curr, e.dest, dt, low, time);
 
                 low[curr] = Math.min(low[curr], low[e.dest]);
 
@@ -50,16 +45,32 @@ public class Topic2 {
             }
             if(vis[e.dest] && e.dest != par){
                 low[curr] = Math.min(low[curr], dt[e.dest]);
+                // low[curr] = Math.min(low[curr], low[e.dest]); --> we also can do this
+            }
+        }
+    }
+
+    public static void tarjanBridge(ArrayList<Edge>[] graph, int V){
+        int time=0;
+        int dt[]= new int[V];
+        int low[]= new int[V];
+
+        boolean vis[] = new boolean[V];
+
+        for(int i=0; i<graph.length; i++){
+            if(!vis[i]){
+                dfs(graph, vis, -1, i, dt, low, time);
             }
         }
     }
     public static void main(String[] args) {
+        int V = 13;
         int[][] edges = {{0,1}, {1,2}, {1,4}, {2,3}, {3,4}, {4,5}, {5,6}, {6,7}, {6,9}, {7,8}, {8,9}, {8,10}, {10,11}, {10,12}, {11,12}};
 
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V];
         creatGraph(graph, edges);
 
-        findBridges(graph, new boolean[V], -1, 0);
+        tarjanBridge(graph, V);
     }
 }
