@@ -87,6 +87,7 @@ public class Knapsack01 {
     }
 
     // Tabulation Method buttom up approach
+    // O(nxW)
     public static int knapsackTab(int[] val, int[] wt, int W){
         int n = val.length;
         if(W==0 || n==0){
