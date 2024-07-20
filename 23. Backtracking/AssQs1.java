@@ -26,31 +26,29 @@ public class AssQs1 {
         }
     }
 
-    public static void allPath(int maze[][], int sr, int sc, String path, int[][] sol){
+    public static void allPath(int maze[][], int sr, int sc, String path, int[][] sol, int[][] vis){
 
         if(sr==maze.length-1 && sc==maze[0].length-1){
             sol[sr][sc] = 1;
             print(sol);
             System.out.println(path);
+            sol[sr][sc] = 0;
             return;
         }
         
-        if(isPossible(maze, sr, sc) && sol[sr][sc] != 1){
-            sol[sr][sc]=1;
+        if(isPossible(maze, sr, sc) && vis[sr][sc] != 1){
 
-            // up
-            allPath(maze, sr-1, sc, path+"U", sol);
+            sol[sr][sc]=1;
+            vis[sr][sc]=1;
 
             // down
-            allPath(maze, sr+1, sc, path+"D", sol);
-
-            // left
-            allPath(maze, sr, sc-1, path+"L", sol);
+            allPath(maze, sr+1, sc, path+"D", sol, vis);
 
             // rirht
-            allPath(maze, sr, sc+1, path+"R", sol);
+            allPath(maze, sr, sc+1, path+"R", sol, vis);
 
             sol[sr][sc]=0;
+            vis[sr][sc]=0;
         }
         
     }
@@ -59,18 +57,19 @@ public class AssQs1 {
         if(r<0 || c<0 || r>=maze.length || c>=maze[0].length || maze[r][c] == 0){
             return false;
         }
-        maze[r][c]=0;
         return true;
     }
+
 
     public static void main(String[] args) {
         int maze[][] = { { 1, 0, 0, 0 },
                          { 1, 1, 0, 1 },
-                         { 0, 1, 0, 0 },
+                         { 0, 1, 1, 0 },
                          { 1, 1, 1, 1 } };
 
         int sol[][] = new int[maze.length][maze[0].length];
+        int vis[][] = new int[maze.length][maze[0].length];
 
-        allPath(maze, 0, 0, "", sol);
+        allPath(maze, 0, 0, "", sol, vis);
     }
 }
