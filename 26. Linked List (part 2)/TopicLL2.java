@@ -10,8 +10,8 @@ class LinkedList {
 
     }
 
-    Node head = null;
-    Node tail = null;
+    public Node head = null;
+    public Node tail = null;
     int size = 0;
 
     public void addfirst(int d) {
@@ -285,9 +285,107 @@ class LinkedList {
         prev.next = null;
         tail = prev;
     }
+
+    // merge Sort
+
+    // merge mid
+    public Node midNode(Node head){
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    public Node mergeSort(Node head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        Node leftH = head;
+        Node mid = midNode(head);
+        Node rightH = mid.next;
+        mid.next = null;
+
+        Node newLeftHead = mergeSort(leftH);
+        Node newRightHead = mergeSort(rightH);
+
+        return merge(newLeftHead, newRightHead);
+    }
+
+    public Node merge(Node leftH, Node rightH){
+
+        Node mergeLL = new Node(-1); // head of merge ll
+        Node temp = mergeLL;
+
+        while (leftH != null && rightH != null) {
+            if(leftH.data < rightH.data){
+                temp.next = leftH;
+                leftH = leftH.next;
+                temp = temp.next;
+            }else{
+                temp.next = rightH;
+                rightH = rightH.next;
+                temp = temp.next;
+            }
+        }
+
+        if(leftH != null){
+            temp.next = leftH;
+        }
+
+        if(rightH != null){
+            temp.next = rightH;
+        }
+
+        Node mHead = mergeLL.next;
+        mergeLL.next = null;
+
+        return mHead;
+    }
+
+    // zig zag Linked List
+    public void zigZagLinkedList(){
+        Node mid = midNode(this.head);
+        reverseRightHalf(mid.next);
+        mid.next = null;
+
+        Node leftHead = head;
+        Node rightHead = tail;
+
+        while (leftHead != null && rightHead != null) {
+            Node nextLeftHead = leftHead.next;
+            Node nextRightHead = rightHead.next;
+
+            leftHead.next = rightHead;
+            rightHead.next = nextLeftHead;
+
+            leftHead = nextLeftHead;
+            rightHead = nextRightHead;
+        }
+
+    }
+
+    public void reverseRightHalf(Node right){
+
+        Node prev = null;
+        Node curr = right;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+    }
 }
 
 public class TopicLL2 {
+    
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.addLast(0);
@@ -306,6 +404,23 @@ public class TopicLL2 {
 
         // ll.printElement();
         ll.removeCycle();
+        ll.printElement();
+
+        LinkedList ll1 = new LinkedList();
+        ll1.addLast(11);
+        ll1.addLast(9);
+        ll1.addLast(8);
+        ll1.addLast(5);
+        ll1.addLast(3);
+
+        ll1.printElement();
+        ll1.head = ll1.mergeSort(ll1.head);
+        ll1.printElement();
+
+        ll.printElement();
+        ll.add(1, 1);
+        ll.printElement();
+        ll.zigZagLinkedList();
         ll.printElement();
 
     }
